@@ -15,8 +15,9 @@ body {
 }
 
 .container {
-    width: 100%;
-    height: 100vh;
+    max-width: 1200px;
+    
+    margin: 0 auto;
 }
 
 .title {
@@ -210,77 +211,133 @@ h3 {
 }
 
 
-@media (min-width: 1200px) {
-    .main_img {
-        flex: 0 0 calc(25% - 20px); 
-    }
+/* --- ОСНОВНЫЕ ПРАВКИ --- */
+
+.container {
+    width: 100%;
+    min-height: 100vh; /* Изменено с height на min-height */
+    padding-bottom: 50px;
 }
 
-
-@media (max-width: 1199px) {
-    .main_img {
-        flex: 0 0 calc(33.33% - 20px); 
-    }
-    .modal-content {
-        width: 90%;
-    }
+.cards {
+    display: grid; /* Переходим на Grid для удобства */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 30px;
+    padding: 20px 40px;
+    margin-top: 30px;
+    justify-items: center; /* Центрируем карточки */
 }
 
+/* Исправляем карточку */
+.card {
+    width: 100%;
+    max-width: 300px; /* Чтобы карточки не были слишком огромными */
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
 
+.card:hover {
+    transform: translateY(-10px); /* Приятный подъем вверх */
+}
+
+.main_img {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.main_img img {
+    width: 100%;
+    height: 400px; /* Фиксированная высота для симметрии (по желанию) */
+    object-fit: cover;
+    display: block;
+}
+
+/* Модальное окно — добавляем прокрутку */
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    /* Твой существующий стиль... */
+}
+
+/* --- УЛУЧШЕННЫЕ MEDIA ЗАПРОСЫ --- */
+
+/* Планшеты (до 991px) */
 @media (max-width: 991px) {
-    .main_img {
-        flex: 0 0 calc(50% - 20px); 
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 20px;
     }
+    
+    .modal-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .modal-img img {
+        width: 100%;
+        max-width: 250px;
+    }
+
     .title {
         font-size: 32px;
     }
-    .modal-body {
-        flex-direction: column; 
-        align-items: center;
-    }
-    .modal-img img {
-        width: 100%; 
-        max-width: 300px;
-    }
 }
 
+/* Мобильные телефоны (до 767px) */
 @media (max-width: 767px) {
     .bts {
         justify-content: center;
-        padding-left: 0;
-        flex-wrap: wrap; 
+        padding: 0 15px;
+        gap: 10px;
     }
-    .main_img {
-        flex: 0 0 100%; 
-        max-width: 350px;
+
+    .bts button {
+        padding: 10px 20px;
+        font-size: 16px;
+        flex: 1 1 auto; /* Кнопки подстраиваются под ширину */
     }
-    .title {
-        font-size: 28px;
-        text-align: center;
+
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+        padding: 5px 10px;
     }
 }
 
-
-@media (max-width: 479px) {
+/* Совсем маленькие экраны (до 480px) */
+@media (max-width: 480px) {
     .title {
-        font-size: 22px;
+        font-size: 24px;
+        margin-top: 10px;
     }
-    .bts button {
-        padding: 8px 15px;
-        font-size: 14px;
-        width: 100%; 
+
+    .cards {
+        grid-template-columns: 1fr; /* По одной карточке в ряд для удобства */
+        padding: 10px 30px;
     }
+
     .modal-content {
-        padding: 20px;
+        padding: 25px 15px;
         width: 95%;
     }
+
     .modal-info h3 {
         font-size: 20px;
+        width: 100%;
     }
-    .description {
-        font-size: 14px;
+
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
     }
 }
-
-hr { border: 0; border-top: 1px solid rgba(255,255,255,0.3); margin: 10px 0; }
-.description { line-height: 1.6; font-size: 17px; }
